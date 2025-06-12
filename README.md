@@ -1,8 +1,10 @@
+<p align="center" width="100%">
 <picture>
  <source media="(prefers-color-scheme: dark)" srcset="./img/logo_dark.png">
  <source media="(prefers-color-scheme: light)" srcset="./img/logo_light.png">
  <img alt="M-TRACE Logo" src="./img/logo_default.png" width=500>
 </picture>
+</p>
 
 # M-TRACE
 
