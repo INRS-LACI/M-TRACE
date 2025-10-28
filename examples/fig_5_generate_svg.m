@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% fig_6_generate_svg.m
+% fig_5_generate_svg.m
 % 
 % Script for generating the SVG model of the Brendel & Lautenbacher double-Gauss
 % lens, directly from perscription data.
@@ -112,7 +112,7 @@ system(15).style_str = 'fill: none;stroke: #000000;stroke-width: 0.2;';
 
 
 %% Run
-[vx, vy] = m_trace_generate_system_svg('fig_6_generator_input.svg', system, ...
-    'fig_6_generator_output.svg', [42.918, 39.7815]);
+[vx, vy] = m_trace_generate_system_svg('fig_5_generator_input.svg', system, ...
+    'fig_5_generator_output.svg', [42.918, 39.7815]);
 % Display front element's vertex coordinates:
 disp([vx, vy]);

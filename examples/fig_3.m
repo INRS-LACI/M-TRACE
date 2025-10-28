@@ -1,23 +1,23 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % fig_3.m
 % 
 % Patrick Kilcullen (patrick.kilcullen@inrs.ca)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 close all;
 clear all;
 
-% Animation function (displacement of L2):
-period = 80;            % Animation period
-offset = [3.0, 0];      % Maximum displacement vector [x, y] (mm)
+% Animation function (displacement of cavity mirror):
+period = 40;            % Animation period
+offset = 0.09*[0,1];    % Maximum displacement vector [x, y] (mm)
 disp_func = @(x) cos(2*pi*x/period) * offset;
 
 % Configuration of M-TRACE settings:
 settings.scene_update_mode = 'from_original';
 settings.pre_trace_callback_fcn = ...
-    @(s, x) animation_callback(s, x, 'L2', disp_func);
+    @(s, x) animation_callback(s, x, 'cavity_adjustment', disp_func);
 settings.post_trace_callback_fcn = ...
-    @(s, x) report_callback(s, x, 'output_plane', disp_func, period/2);
+    @(s, x) report_callback(s, x, 'output_lens', disp_func, period/2);
 
 % Start simulation:
 m_trace('fig_3.svg', settings);
@@ -44,15 +44,14 @@ function cont = report_callback(ax_h, frame_num, id_str, disp_func, frame_limit)
     elseif frame_num > frame_limit  % Halt data accumulation after frame limit
         return;
     end
-    % Lens movement displacement calculation:
+    % Mirror movement displacement calculation:
     displ = disp_func(frame_num);
-    % Marginal ray data collection:
-    data = m_trace_get_trace_data_by_tag(ax_h.UserData.m_trace_data, id_str, ...
-        'marginal_rays');
-    xnew = displ(1) * ones(1, numel(data)); % Extract displacement x coordinate
+    % Ray intersection data collection:
+    data = m_trace_get_trace_data_by_tag(ax_h.UserData.m_trace_data, id_str);
+    xnew = displ(2) * ones(1, numel(data)); % Extract displacement y coordinate
     ynew = zeros(1, numel(data));
     for k=1:numel(data)
-        ynew(k) = data{k}.launch(2);        % Extract intersection y coordinate
+        ynew(k) = data{k}.launch(1);        % Extract intersection x coordinate
     end
     % Data accumulation (allows for saving with parent figure for later use):
     ax_h.UserData.fig_3_report.XData = [ax_h.UserData.fig_3_report.XData, xnew];
