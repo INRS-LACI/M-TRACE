@@ -14,6 +14,7 @@ Simulations in M-TRACE are created using SVG (scalable vector graphics) files th
 
 A full description of the operation of M-TRACE can be found in our accompanying open access journal article:
 > Patrick Kilcullen, Tsuneyuki Ozaki, and Jinyang Liang, "M-TRACE: a MATLAB toolkit for animated raytracing based on scalable vector graphics illustration," *Optics Continuum* **5**, 235-253 (2026). doi: [10.1364/OPTCON.583203](https://doi.org/10.1364/OPTCON.583203).
+
 Details about the files included in the `examples` folder may be found alongside the corresponding figures in the article.
 
 ## Installation
