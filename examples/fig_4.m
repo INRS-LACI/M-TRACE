@@ -71,7 +71,12 @@ function cont = report(ax_h, frame_num, id_str)
     l_h = findobj(ax_h.Parent, 'Tag', 'output_slit_reported_data');
     l_h.XData = [l_h.XData, xnew];    % Append new data
     l_h.YData = [l_h.YData, ynew];    % 
-    l_h.Parent.XLim(2) = frame_num;    % X limit adjustment
+
+    if (frame_num==0)                 
+        l_h.Parent.XLim = [0, 1];          % default for first frame
+    else
+        l_h.Parent.XLim(2) = frame_num;    % growing X limit adjustment
+    end
 
     cont = true;
 end
